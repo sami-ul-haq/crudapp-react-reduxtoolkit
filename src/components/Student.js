@@ -8,7 +8,7 @@ const Student = () => {
     const history = useHistory();
     const { id } = useParams();
     const dispatch = useDispatch();
-    const {firstName , lastName , email} = useSelector(state => state.student.student);
+    const {firstName , lastName , email , address, phone} = useSelector(state => state.student.student);
 
     // Getting Student
     useEffect(()=>{
@@ -28,7 +28,8 @@ const Student = () => {
         <div className="student-item">
             <h2>{firstName} {lastName}</h2>
             <p>{email}</p>
-            <p>{id}</p>
+            <p>{phone}</p>
+            <p>{address}</p>
             <button className="btn" onClick={goBack}>Back</button>
         </div>
     )

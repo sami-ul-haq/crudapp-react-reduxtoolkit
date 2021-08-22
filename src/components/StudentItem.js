@@ -9,12 +9,12 @@ const StudentItem = ({ student }) => {
 
   return (
     <div className="student-item">
-      <h2>
+      <h3>
         {firstName} {lastName}
-      </h2>
+      </h3>
       <p>{email}</p>
       <Link to={`/student/${id}`}>
-        <button className="btn">View</button>
+        <button className="btn view-btn">View</button>
       </Link>
       <div className="student-cta">
        <Link to={`/student/${id}/edit`}><button className="btn">Edit</button></Link>

@@ -5,15 +5,18 @@ import StudentItem from "./StudentItem";
 
 const Students = () => {
   const students = useSelector((state) => state.student.students);
-  console.log(students)
+
   return (
+    <>
+    <h1>CRUD Application</h1>
     <div className="student-container">
       {students.map((student) => (
         <StudentItem student={student} key={student.id} />
       ))}
 
-      <Link to="/addStudent" ><button>Add Student</button></Link>
+      <Link to="/addStudent" ><button className="add-std">Add Student</button></Link>
     </div>
+    </>
   );
 };
 

@@ -32,9 +32,14 @@ const AddStudent = () => {
     history.push("/");
   };
 
+  const goBack = () => {
+    history.push("/");
+  };
+
   return (
     <form onSubmit={formHandler}>
         <h1>Add Student</h1>
+        <label htmlFor="">First Name: </label>
       <input
         type="text"
         name="firstName"
@@ -43,7 +48,7 @@ const AddStudent = () => {
         onChange={inputHandler}
         placeholder="enter first name"
       />
-
+      <label htmlFor="">Last Name: </label>
       <input
         type="text"
         name="lastName"
@@ -52,7 +57,7 @@ const AddStudent = () => {
         onChange={inputHandler}
         placeholder="enter last anem"
       />
-
+      <label htmlFor="">Phone: </label>
       <input
         type="phone"
         name="phone"
@@ -61,16 +66,17 @@ const AddStudent = () => {
         onChange={inputHandler}
         placeholder="enter phone"
       />
+      <label htmlFor="">Email: </label>
 
       <input
         type="email"
         name="email"
         className="input-field"
-        alue={data.email}
+        value={data.email}
         onChange={inputHandler}
         placeholder="enter email"
       />
-
+      <label htmlFor="">Address: </label>
       <input
         type="text"
         name="address"
@@ -80,7 +86,10 @@ const AddStudent = () => {
         placeholder="enter address"
       />
 
-      <button type="submit">Add Student</button>
+      <button className="form-btn" type="submit">Add Student</button>
+      <br />
+      <br />
+      <button className="form-btn" onClick={goBack}>Go Back</button>
     </form>
   );
 };

@@ -3,42 +3,47 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { clearStudent, getStudent, updateStudent } from "../redux/studentSlice";
-import { v4 as uuidv4 } from "uuid";
 
 const EditStudent = () => {
+  const history = useHistory();
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const student = useSelector((state) => state.student.student);
+  console.log(student);
 
-    const history = useHistory();
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    const student = useSelector(state => state.student.student);
-    console.log(student);
-
-    const [data, setData] = useState({
-        firstName: student.firstName,
-        lastName: student.lastName,
-        email: student.email,
-        address: student.address,
-        phone: student.phone,
-      });
-
-    // Getting Student
-    useEffect(()=>{
-        dispatch(getStudent(id));
-        
-        // return () => {
-        //     dispatch(clearStudent());
-        // };
-        // eslint-disable-next-line
-    }, [student]);
-
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    address: "",
+    phone: "",
+  });
 
   const inputHandler = (e) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
-      id: student.id,
     });
   };
+
+  // Getting Student
+  useEffect(() => {
+    if (student) {
+      setData({
+        firstName: student.firstName,
+        lastName: student.lastName,
+        email: student.email,
+        address: student.address,
+        phone: student.phone,
+        id: student.id,
+      });
+    }
+    dispatch(getStudent(id));
+    return () => {
+      dispatch(clearStudent());
+    };
+    // eslint-disable-next-line
+  }, [student]);
 
   const formHandler = (e) => {
     e.preventDefault();
@@ -48,11 +53,12 @@ const EditStudent = () => {
 
   const goBack = () => {
     history.push("/");
-  }
+  };
 
   return (
     <form onSubmit={formHandler}>
-         <h1>Edit Student</h1>
+      <h1>Edit Student</h1>
+      <label htmlFor="">First Name: </label>
       <input
         type="text"
         name="firstName"
@@ -61,7 +67,7 @@ const EditStudent = () => {
         onChange={inputHandler}
         placeholder="enter first name"
       />
-
+      <label htmlFor="">Last Name: </label>
       <input
         type="text"
         name="lastName"
@@ -70,7 +76,7 @@ const EditStudent = () => {
         onChange={inputHandler}
         placeholder="enter last anem"
       />
-
+      <label htmlFor="">Phone: </label>
       <input
         type="phone"
         name="phone"
@@ -79,16 +85,17 @@ const EditStudent = () => {
         onChange={inputHandler}
         placeholder="enter phone"
       />
+      <label htmlFor="">Email: </label>
 
       <input
         type="email"
         name="email"
         className="input-field"
-        alue={data.email}
+        value={data.email}
         onChange={inputHandler}
         placeholder="enter email"
       />
-
+      <label htmlFor="">Address: </label>
       <input
         type="text"
         name="address"
@@ -98,10 +105,10 @@ const EditStudent = () => {
         placeholder="enter address"
       />
 
-      <button type="submit">Update Student</button>
+      <button className="form-btn" type="submit">Update Student</button>
       <br />
       <br />
-      <button onClick={goBack}>Go Back</button>
+      <button className="form-btn" onClick={goBack}>Go Back</button>
     </form>
   );
 };
